@@ -1,5 +1,10 @@
 {{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
+{{count-up
+  startVal=0
+  endVal=100
+  duration=1.5
+  decimals=2
+  useEasing=true}}
 {{!-- Feel free to remove this! --}}
 
 {{outlet}}

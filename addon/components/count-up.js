@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { next } from '@ember/runloop';
+import { observer, get } from '@ember/object';
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['ember-countup'],
   tagName: 'span',
 
@@ -8,13 +10,13 @@ export default Ember.Component.extend({
     this._insertAndStartCountUp();
   },
 
-  changed: Ember.observer('startVal', 'endVal', 'decimals', 'duration', 'useEasing', 'easingFn', 'useGrouping', 'separator', 'decimal', 'prefix', 'suffix', 'formattingFn', 'onComplete', function () {
+  changed: observer('startVal', 'endVal', 'decimals', 'duration', 'useEasing', 'easingFn', 'useGrouping', 'separator', 'decimal', 'prefix', 'suffix', 'formattingFn', 'onComplete', function () {
     this._insertAndStartCountUp();
   }),
 
   _insertAndStartCountUp() {
-    Ember.run.next(() => {
-      var countup = new CountUp(
+    next(() => {
+      let countup = new CountUp(
         this.get('elementId'),
         this.get('startVal') || 0,
         this.get('endVal') || 0,
@@ -32,8 +34,8 @@ export default Ember.Component.extend({
         }
       );
 
-      if (this.attrs.onComplete) {
-        countup.start(this.attrs.onComplete);
+      if (get(this, 'onComplete')) {
+        countup.start(get(this, 'onComplete'));
       } else {
         countup.start();
       }
