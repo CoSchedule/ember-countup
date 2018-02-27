@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { next } from '@ember/runloop';
-import { observer } from '@ember/object';
+import { observer, get } from '@ember/object';
 
 export default Component.extend({
   classNames: ['ember-countup'],
@@ -34,8 +34,8 @@ export default Component.extend({
         }
       );
 
-      if (this.attrs.onComplete) {
-        countup.start(this.attrs.onComplete);
+      if (get(this, 'onComplete')) {
+        countup.start(get(this, 'onComplete'));
       } else {
         countup.start();
       }
